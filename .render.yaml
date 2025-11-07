@@ -1,46 +1,28 @@
 services:
-  # ==========================
-  # 🌐 FRONTEND (React + Vite)
-  # ==========================
-  - type: web
-    name: emissor-nfe-frontend
-    env: static
-    buildCommand: npm install && npm run build
-    publishPath: frontend/dist
-    rootDir: frontend
-    envVars:
-      - key: NODE_VERSION
-        value: 22.16.0
-
-  # ==========================
-  # ⚙️ BACKEND (Node.js API)
-  # ==========================
   - type: web
     name: emissor-nfe-backend
     env: node
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    autoDeploy: true
     envVars:
-      - key: NODE_VERSION
-        value: 22.16.0
+      - key: NODE_ENV
+        value: production
       - key: PORT
-        value: 3333
-      - key: DB_HOST
-        value: seu_host_mysql
-      - key: DB_USER
-        value: seu_usuario
-      - key: DB_PASS
-        value: sua_senha
-      - key: DB_NAME
-        value: sualojapdv_emissor
-      - key: MAIL_HOST
-        value: mail.sualojapdv.com.br
-      - key: MAIL_PORT
-        value: 465
-      - key: MAIL_USER
-        value: contato@sualojapdv.com.br
-      - key: MAIL_PASS
-        value: Eusoueuropeu123*
-      - key: BASE_URL
-        value: https://emissor-nfe-frontend.onrender.com
+        value: 10000
+      - key: DATABASE_URL
+        value: mysql://usuario:senha@host:3306/emissor_nfe_2025
+    rootDir: backend
+
+  - type: web
+    name: emissor-nfe-frontend
+    env: node
+    plan: free
+    buildCommand: "npm install && npm run build"
+    startCommand: "npx serve -s dist"
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+    rootDir: frontend
