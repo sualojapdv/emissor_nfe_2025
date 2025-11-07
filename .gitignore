@@ -1,0 +1,11 @@
+# Dependências
+node_modules/
+.env
+storage/certificados/
+storage/logs/
+uploads/
+dist/
+
+# Sistema
+.DS_Store
+Thumbs.db
