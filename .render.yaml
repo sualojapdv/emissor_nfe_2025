@@ -1,28 +1,18 @@
 services:
+  # 🚀 Backend - Node.js + Express
   - type: web
     name: emissor-nfe-backend
     env: node
-    plan: free
-    buildCommand: "npm install"
-    startCommand: "npm start"
-    autoDeploy: true
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: 10000
-      - key: DATABASE_URL
-        value: mysql://usuario:senha@host:3306/emissor_nfe_2025
     rootDir: backend
-
-  - type: web
-    name: emissor-nfe-frontend
-    env: node
-    plan: free
-    buildCommand: "npm install && npm run build"
-    startCommand: "npx serve -s dist"
-    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
+
+  # 🌐 Frontend - React (Vite)
+  - type: static
+    name: emissor-nfe-frontend
     rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
